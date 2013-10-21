@@ -19,6 +19,8 @@ Documentation on the peripheral library can be found in the file **stm32f4xx_dsp
 Examples:
 
 + **GPIO** example featuring setting and reading from IO pins
++ **USART** example using USART1 to send and receive strings
++ **SD card** example with low level driver for **Elm Chan FatFS** (note currently still messy, no CRC, no timeout, only primitive error handling)
 
 ###This code is licensed under the Creative Commons Attribution license v3.0
 
