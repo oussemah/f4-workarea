@@ -1,4 +1,4 @@
-TARGET=main
+TARGET=main.hex
 EXECUTABLE=main.elf
 
 CC=arm-none-eabi-gcc
@@ -79,4 +79,4 @@ $(EXECUTABLE): $(SRC) $(STARTUP)
 
 clean:
 	rm -f Startup.lst  $(TARGET)  $(TARGET).lst $(OBJ) $(AUTOGEN)  $(TARGET).out  $(TARGET).hex  $(TARGET).map \
-	 $(TARGET).dmp  $(TARGET).elf
+	 $(TARGET).dmp  $(EXECUTABLE)
