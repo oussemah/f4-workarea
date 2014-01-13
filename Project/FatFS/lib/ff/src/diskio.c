@@ -266,7 +266,7 @@ DRESULT disk_write (
 		while(sdc_getResponse(0x00)); // wait for R1 response
 		SPI_send_single(SPI1, 0xFF);  // send one byte gap
 		
-		while(count--)
+		while(count)
 		{
 			SPI_send_single(SPI1, 0xFC); // send multi byte data token 0xFC
 			SPI_send(SPI1, (unsigned char*)buff, 512); // send 512 bytes
