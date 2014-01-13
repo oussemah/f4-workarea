@@ -40,9 +40,9 @@ void SPI_init(SPI_TypeDef* SPIx, unsigned int prescaler)
 	SPI_InitStruct.SPI_NSS = SPI_NSS_Soft | SPI_NSSInternalSoft_Set; // set the NSS management to internal and pull internal NSS high
 	SPI_InitStruct.SPI_BaudRatePrescaler = prescaler; // SPI frequency is APB2 frequency / 4
 	SPI_InitStruct.SPI_FirstBit = SPI_FirstBit_MSB;// data is transmitted MSB first
-	SPI_Init(SPI1, &SPI_InitStruct); 
+	SPI_Init(SPIx, &SPI_InitStruct); 
 	
-	SPI_Cmd(SPI1, ENABLE); // enable SPI1
+	SPI_Cmd(SPIx, ENABLE); // enable SPI1
 }
 
 void SPI_send_single(SPI_TypeDef* SPIx, unsigned char data)
@@ -57,11 +57,11 @@ void SPI_send_single(SPI_TypeDef* SPIx, unsigned char data)
 
 unsigned char SPI_receive_single(SPI_TypeDef* SPIx)
 {
-	SPI1->DR = 0xFF; // write data to be transmitted to the SPI data register
-	while( !(SPI1->SR & SPI_I2S_FLAG_TXE) ); // wait until transmit complete
-	while( !(SPI1->SR & SPI_I2S_FLAG_RXNE) ); // wait until receive complete
-	while( SPI1->SR & SPI_I2S_FLAG_BSY ); // wait until SPI is not busy anymore
-	return SPI1->DR; // return received data from SPI data register
+	SPIx->DR = 0xFF; // write data to be transmitted to the SPI data register
+	while( !(SPIx->SR & SPI_I2S_FLAG_TXE) ); // wait until transmit complete
+	while( !(SPIx->SR & SPI_I2S_FLAG_RXNE) ); // wait until receive complete
+	while( SPIx->SR & SPI_I2S_FLAG_BSY ); // wait until SPI is not busy anymore
+	return SPIx->DR; // return received data from SPI data register
 }
 
 void SPI_send(SPI_TypeDef* SPIx, unsigned char* data, unsigned int length)
