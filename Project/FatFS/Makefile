@@ -1,4 +1,4 @@
-TARGET=main.hex
+TARGET=main
 EXECUTABLE=main.elf
 
 CC=arm-none-eabi-gcc
@@ -69,14 +69,14 @@ OBJDIR = .
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) 
 OBJ += Startup.o
 
-all: $(TARGET)
+all: $(TARGET).hex
 
-$(TARGET): $(EXECUTABLE)
+$(TARGET).hex: $(EXECUTABLE)
 	$(CP) -O ihex $^ $@
 
 $(EXECUTABLE): $(SRC) $(STARTUP)
 	$(CC) $(CFLAGS) $^ -lm -lc -lnosys -o $@
 
 clean:
-	rm -f Startup.lst  $(TARGET)  $(TARGET).lst $(OBJ) $(AUTOGEN)  $(TARGET).out  $(TARGET).hex  $(TARGET).map \
+	rm -f Startup.lst $(TARGET).lst $(OBJ) $(AUTOGEN)  $(TARGET).out  $(TARGET).hex  $(TARGET).map \
 	 $(TARGET).dmp  $(EXECUTABLE)
