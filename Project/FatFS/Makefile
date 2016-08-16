@@ -19,7 +19,7 @@ STM32_INCLUDES = -I../../Libraries/CMSIS/Device/ST/STM32F4xx/Include/ \
 	-I../../Libraries/CMSIS/Include/ \
 	-I../../Libraries/STM32F4xx_StdPeriph_Driver/inc/ \
 	-Ilib/spi/ \
-	-Ilib/ff/src/
+	-Ifat_fs/include/
 
 OPTIMIZE       = -O3
 
@@ -62,14 +62,17 @@ SRC = main.c \
 	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c \
 	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c \
 	lib/spi/spi.c \
-	lib/ff/src/ff.c \
-	lib/ff/src/diskio.c
+	fat_fs/source/diskio.c \
+	fat_fs/source/fattime.c \
+	fat_fs/source/ff.c \
+	fat_fs/source/diskio.c
 
 OBJDIR = .
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) 
 OBJ += Startup.o
 
 all: $(TARGET).hex
+	$(CP) -O binary $(TARGET).elf $(TARGET).bin
 
 $(TARGET).hex: $(EXECUTABLE)
 	$(CP) -O ihex $^ $@
@@ -80,3 +83,11 @@ $(EXECUTABLE): $(SRC) $(STARTUP)
 clean:
 	rm -f Startup.lst $(TARGET).lst $(OBJ) $(AUTOGEN)  $(TARGET).out  $(TARGET).hex  $(TARGET).map \
 	 $(TARGET).dmp  $(EXECUTABLE)
+
+# Put your stlink folder here so make burn will work.
+STLINK=/opt/STM/stlink/
+DEBUGGER=arm-none-eabi-gdb
+
+# Flash the STM32F4
+burn: $(TARGET).bin
+	$(STLINK)/st-flash write $(TARGET).bin 0x8000000

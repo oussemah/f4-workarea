@@ -29,6 +29,8 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
+#define  USE_STM324x7I_EVAL
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx.h"
 
