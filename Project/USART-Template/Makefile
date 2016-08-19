@@ -17,8 +17,7 @@ MCU = cortex-m4
 MCFLAGS = -mcpu=$(MCU) -mthumb -mlittle-endian -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb-interwork -std=c99
 STM32_INCLUDES = -I../../Libraries/CMSIS/Device/ST/STM32F4xx/Include/ \
 	-I../../Libraries/CMSIS/Include/ \
-	-I../../Libraries/STM32F4xx_StdPeriph_Driver/inc/ \
-	-I/home/harbio/stm32/stm32f4_legacy_linux/Utilities/STM32F4-Discovery/
+	-I../../Libraries/STM32F4xx_StdPeriph_Driver/inc/
 
 OPTIMIZE       = -Os
 
@@ -59,9 +58,7 @@ SRC = main.c \
 	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.c \
 	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c \
 	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c \
-	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c \
-	spi.c \
-	/home/harbio/stm32/stm32f4_legacy_linux/Utilities/STM32F4-Discovery/stm32f4_discovery.c
+	../../Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c 
 
 OBJDIR = .
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o) 
